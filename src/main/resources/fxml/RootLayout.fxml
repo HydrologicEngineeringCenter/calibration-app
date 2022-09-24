@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calibration.view.RootLayoutController">
+   <children>
+      <BorderPane layoutY="6.0" prefHeight="544.0" prefWidth="510.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <Pane minHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane minHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+         </right>
+         <center>
+            <TabPane minHeight="0.0" BorderPane.alignment="CENTER">
+               <tabs>
+                  <Tab closable="false" text="Analysis">
+                     <content>
+                        <VBox>
+                           <children>
+                              <TitledPane animated="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="25.0" text="Simulation">
+                                <content>
+                                  <AnchorPane minHeight="0.0">
+                                       <children>
+                                          <GridPane layoutX="39.6" layoutY="41.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="142.0" minWidth="142.0" prefWidth="142.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="12.0" minWidth="12.0" prefWidth="12.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="NEVER" maxWidth="12.0" minWidth="12.0" prefWidth="12.0" />
+                                              <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="12.0" minHeight="12.0" prefHeight="12.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <TextField fx:id="computedDssTextField" maxWidth="1.7976931348623157E308" prefHeight="25.0" GridPane.columnIndex="2" />
+                                                <Label text="DSS File:" />
+                                                <Button fx:id="simulationDssFileBrowse" alignment="CENTER" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#handleComputedDssBrowse" prefHeight="25.0" prefWidth="25.0" GridPane.columnIndex="4" />
+                                                <Label text="DSS Path:" GridPane.rowIndex="2" />
+                                                <TextField fx:id="computedDssPathTextField" maxWidth="1.7976931348623157E308" prefHeight="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                                <Button fx:id="simulationDssPathBrowse" alignment="CENTER" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#handleComputedDssPathBrowse" prefHeight="25.0" prefWidth="25.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </TitledPane>
+                              <TitledPane animated="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="25.0" text="Observation">
+                                 <content>
+                                    <AnchorPane minHeight="0.0">
+                                       <children>
+                                          <GridPane layoutX="18.6" layoutY="19.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="142.0" minWidth="142.0" prefWidth="142.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="12.0" minWidth="12.0" prefWidth="12.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="NEVER" maxWidth="12.0" minWidth="12.0" prefWidth="12.0" />
+                                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="12.0" minHeight="12.0" prefHeight="12.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TextField fx:id="observedDssTextField" prefHeight="25.0" GridPane.columnIndex="2" />
+                                                <Label text="DSS File:" />
+                                                <Button fx:id="observationDssFileBrowse" alignment="CENTER" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#handleObservedDssBrowse" prefHeight="25.0" prefWidth="25.0" GridPane.columnIndex="4" />
+                                                <Label text="DSS Path:" GridPane.rowIndex="2" />
+                                                <TextField fx:id="observedDssPathTextField" alignment="TOP_LEFT" prefHeight="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                                <Button fx:id="observationDssPathBrowse" alignment="CENTER" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#handleObservedDssPathBrowse" prefHeight="25.0" prefWidth="25.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane animated="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="25.0" text="Analysis Period">
+                                 <content>
+                                    <AnchorPane minHeight="0.0">
+                                       <children>
+                                          <GridPane layoutX="31.6" layoutY="31.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="142.0" minWidth="142.0" prefWidth="142.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="12.0" minWidth="12.0" prefWidth="12.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints hgrow="NEVER" maxWidth="12.0" minWidth="12.0" prefWidth="12.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="12.0" minHeight="12.0" prefHeight="12.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="12.0" minHeight="12.0" prefHeight="12.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="12.0" minHeight="12.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="12.0" minHeight="12.0" prefHeight="12.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label prefHeight="17.0" prefWidth="141.0" text="Start Date (ddMMMYYYY):" />
+                                                <TextField fx:id="startDateTextField" prefHeight="25.0" GridPane.columnIndex="2" />
+                                                <Label text="Start Time (HHmm):" GridPane.rowIndex="2" />
+                                                <TextField fx:id="startTimeTextField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                                <Label text="End Date (ddMMMYYYY):" GridPane.rowIndex="4" />
+                                                <TextField fx:id="endDateTextField" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                                                <Label text="End Time (HHmm):" GridPane.rowIndex="6" />
+                                                <TextField fx:id="endTimeTextField" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                                                <Label text="Interval:" GridPane.rowIndex="8" />
+                                                <ComboBox fx:id="timeIntervalComboBox" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </TitledPane>
+                           </children>
+                        </VBox>
+                     </content>
+                  </Tab>
+                  <Tab closable="false" text="Statistics">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="statisticsTable" layoutX="105.0" layoutY="155.0" minHeight="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab closable="false" text="Monthly Average">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <LineChart fx:id="cyclicMonthlyChart" layoutX="5.0" layoutY="21.0" prefHeight="441.0" prefWidth="510.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </center>
+         <bottom>
+            <TilePane alignment="CENTER" maxHeight="1.7976931348623157E308" minHeight="0.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleCompute" text="Compute" TilePane.alignment="CENTER">
+                     <TilePane.margin>
+                        <Insets bottom="12.0" top="12.0" />
+                     </TilePane.margin>
+                  </Button>
+               </children>
+            </TilePane>
+         </bottom>
+         <top>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Open" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Save" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Save As..." />
+                        <MenuItem fx:id="export" mnemonicParsing="false" onAction="#handleExport" text="Export Statistics" />
+                    <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>

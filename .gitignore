@@ -1,0 +1,12 @@
+/*
+!/src
+!/package
+!/gradle
+!.gitignore
+!build.gradle
+!gradlew
+!gradlew.bat
+!/.idea
+/.idea/*
+!/.idea/runConfigurations
+!/README.MD

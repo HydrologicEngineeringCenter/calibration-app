@@ -1,0 +1,15 @@
+.default-color0.chart-series-line {
+  -fx-stroke: rgb(0, 0, 255);
+}
+ 
+.default-color1.chart-series-line {
+  -fx-stroke: rgb(0, 0, 0);
+}
+
+.default-color0.chart-line-symbol {
+  -fx-background-color: rgb(0, 0, 255), white;
+}
+ 
+.default-color1.chart-line-symbol {
+  -fx-background-color: rgb(0, 0, 0), white;
+}

@@ -1,0 +1,162 @@
+import org.gradle.internal.os.OperatingSystem
+
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.12'
+    id 'nebula.release' version '16.1.0'
+}
+
+repositories {
+    maven {
+        url "https://www.hec.usace.army.mil/nexus/repository/maven-public/"
+    }
+    mavenCentral()
+}
+
+configurations {
+    windows_x64
+    linux_x64
+    macOS_x64
+}
+
+javafx {
+    version = "12"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+dependencies {
+    implementation ('mil.army.usace.hec:hec-monolith:2.+') {
+        transitive = false
+    }
+    implementation ('mil.army.usace.hec:hec-nucleus-data:1.0.28') {
+        transitive = false
+    }
+    implementation ('mil.army.usace.hec:hec-nucleus-metadata:1.0.28') {
+        transitive = false
+    }
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'org.apache.commons:commons-math3:3.6.1'
+    runtimeOnly 'com.google.flogger:flogger:0.7.4'
+    runtimeOnly 'com.google.flogger:flogger-system-backend:0.7.4'
+    runtimeOnly 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
+    windows_x64 'net.adoptium:jre:11.0.15_10:win-x64@zip'
+    windows_x64 'mil.army.usace.hec:javaHeclib:7-IP-1-win-x86_64@zip'
+    linux_x64 'net.adoptium:jre:11.0.15_10:linux-x64@tar.gz'
+    linux_x64 'mil.army.usace.hec:javaHeclib:7-IP-1-linux-x86_64@tar.gz'
+    macOS_x64 'net.adoptium:jre:11.0.15_10:macOS-x64@zip'
+    macOS_x64 'mil.army.usace.hec:javaHeclib:7-IP-1-macOS-x86_64@zip'
+}
+
+task getNatives(type: Copy){
+    if (OperatingSystem.current().isWindows()) {
+        configurations.windows_x64.asFileTree.each {
+            from(zipTree(it))
+            exclude "*.lib"
+            into "$projectDir/x64"
+        }
+    } else if (OperatingSystem.current().isLinux()){
+        configurations.linux_x64.asFileTree.each {
+            from(tarTree(it))
+            into "$projectDir/x64"
+        }
+    } else if (OperatingSystem.current().isMacOsX()) {
+        configurations.macOS_x64.asFileTree.each {
+            from(zipTree(it))
+            into "$projectDir/x64"
+        }
+        doLast {
+            ant.move(todir: "$projectDir/x64/Frameworks") {
+                fileset(dir: "$projectDir/x64") {
+                    include(name: "**.dylib")
+                }
+            }
+        }
+    }
+}
+
+task refreshNatives {
+    destroyables.register("$projectDir/x64")
+    doLast {
+        delete("$projectDir/x64")
+    }
+}
+refreshNatives.finalizedBy(getNatives)
+
+task copyNatives(type: Copy) {
+    if (OperatingSystem.current().isWindows()) {
+        from "$projectDir/x64"
+        exclude 'jre'
+        into "$buildDir/distributions/$applicationName-$version-win-x64/bin"
+    } else if (OperatingSystem.current().isLinux()) {
+        from "$projectDir/x64"
+        exclude 'jre'
+        into "$buildDir/distributions/$applicationName-$version-linux64/bin"
+    } else if (OperatingSystem.current().isMacOsX()) {
+        from "$projectDir/x64/Resources"
+        into "$buildDir/distributions/$applicationName-$version-macOS"
+    }
+}
+
+copyNatives.dependsOn refreshNatives
+
+task copyJar(type: Copy) {
+    if (OperatingSystem.current().isWindows()) {
+        from "$buildDir/libs"
+        include "calibration-app*.jar"
+        into "$buildDir/distributions/$applicationName-$version-win-x64/lib"
+    }
+}
+
+task copyLibs(type: Copy) {
+    if (OperatingSystem.current().isWindows()) {
+        from configurations.runtimeClasspath
+        include "*.jar"
+        into "$buildDir/distributions/$applicationName-$version-win-x64/lib"
+    }
+}
+
+task copyStartScripts(type: Copy) {
+    if (OperatingSystem.current().isWindows()) {
+        from "$projectDir/package/windows"
+        include 'calibration-app.bat'
+        include 'calibration-app.exe'
+        into "$buildDir/distributions/$applicationName-$version-win-x64/bin"
+    }
+}
+
+task copyJre(type: Copy) {
+    if (OperatingSystem.current().isWindows()) {
+        from "$projectDir/x64/jre"
+        into "$buildDir/distributions/$applicationName-$version-win-x64/jre"
+    }
+}
+
+task zip() {
+    dependsOn copyJar, copyLibs, copyNatives, copyStartScripts, copyJre
+    if (OperatingSystem.current().isWindows()) {
+        dependsOn {
+            tasks.create("zipWin", Zip) {
+                mkdir file("$buildDir/distributions/$applicationName-$version-win-x64")
+                archiveFileName = "$applicationName-$version-win-x64" + ".zip"
+                destinationDirectory = file("$buildDir/distributions")
+                from fileTree("$buildDir/distributions/$applicationName-$version-win-x64")
+                into "$applicationName-$version"
+            }
+        }
+    }
+}
+
+build {
+    finalizedBy copyJar, copyLibs, copyNatives, copyJre, copyStartScripts, zip
+}
+
+application {
+    mainClassName = "calibration.CalibrationApp"
+    applicationDefaultJvmArgs = ["-Djava.library.path=${projectDir}/x64", "-Djava.io.tmpdir=C:/Temp"]
+}
+
+startScripts.enabled = false
+installDist.enabled = false
+distZip.enabled = false
+distTar.enabled = false

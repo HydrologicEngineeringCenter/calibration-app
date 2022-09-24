@@ -1,0 +1,1 @@
+"..\jre\bin\java.exe" --module-path "..\lib" --add-modules javafx.controls,javafx.fxml -Djavafx.cachedir=. -Djava.library.path="." -cp ..\lib\* calibration.CalibrationApp
