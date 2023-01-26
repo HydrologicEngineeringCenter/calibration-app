@@ -270,7 +270,7 @@ public class Analysis {
         }
 
         if (observedTsc.isPresent() && computedTsc.isPresent()) {
-            if (this.computedTsc.units.equals(this.observedTsc.units)) {
+            if (this.computedTsc.units.equalsIgnoreCase(this.observedTsc.units)) {
                 units = this.computedTsc.units;
             } else {
                 errors++;
@@ -279,23 +279,8 @@ public class Analysis {
                 valid = false;
             }
         }
-
-        if (observedTsc.isPresent() && computedTsc.isPresent()) {
-            String observedParameter = this.observedTsc.parameter.split("-")[0];
-            String computedParameter = this.computedTsc.parameter.split("-")[0];
-
-            if (computedParameter.equals(observedParameter)) {
-                parameter = observedParameter;
-            } else {
-                errors++;
-                String errorMessage = "Computed and observed parameters are not equivalent\n";
-                errorMessages.append(errorMessage);
-                valid = false;
-            }
-        }
-
+        parameter = this.computedTsc.parameter;
         this.errorMessages = errorMessages.toString();
-
     }
 
     private void computeStatistics() throws HecMathException {
