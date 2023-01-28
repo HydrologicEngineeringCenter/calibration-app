@@ -299,6 +299,8 @@ public class Analysis {
         computers.add(new RMSEStandardDeviationComputer());
         computers.add(new PercentBiasComputer());
         computers.add(new CoefficientOfDeterminationComputer());
+        computers.add(new ValueDiffPeakComputer());
+        computers.add(new PercentDiffPeakComputer());
 
         computers.stream().forEach(computer -> statistics.add(computer.computeStatistic(simulatedFlow, observedFlow)));
     }
