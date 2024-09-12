@@ -3,7 +3,7 @@ import org.gradle.internal.os.OperatingSystem
 plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.12'
-    id 'nebula.release' version '16.1.0'
+    id 'nebula.release' version '19.0.10'
 }
 
 version = '1.0.1'
