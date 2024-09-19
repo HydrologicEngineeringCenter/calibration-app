@@ -285,7 +285,7 @@ public class RootLayoutController implements Initializable {
 		}
 
         if (file != null) {
-            app.loadAnalysisFromFile(file);
+            app.loadAnalysisFromFile(file, false);
             computedDssTextField.setText(app.getAnalysis().getComputedDssFile());
         	computedDssPathTextField.setText(app.getAnalysis().getComputedDssPath());
         	observedDssTextField.setText(app.getAnalysis().getObservedDssFile());

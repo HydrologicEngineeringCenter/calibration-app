@@ -194,8 +194,9 @@ public class CalibrationApp extends Application {
      * Loads person data from the specified file. The current data will be replaced.
      *
      * @param file
+     * @param headlessCompute true if computing headless, false if computing from the UI
      */
-    public void loadAnalysisFromFile(File file) {
+    public void loadAnalysisFromFile(File file, boolean headlessCompute) {
         try {
             JAXBContext context = JAXBContext.newInstance(Analysis.class);
             Unmarshaller um = context.createUnmarshaller();
@@ -203,9 +204,11 @@ public class CalibrationApp extends Application {
             // Reading XML from the file and unmarshalling.
             this.analysis = (Analysis) um.unmarshal(file);
 
-            // Save the file path to the registry.
-            setAnalysisFile(Optional.ofNullable(file));
-            setPersistedFile(Optional.ofNullable(file));
+            if (!headlessCompute) {
+                // Save the file path to the registry.
+                setAnalysisFile(Optional.ofNullable(file));
+                setPersistedFile(Optional.ofNullable(file));
+            }
 
         } catch (Exception e) { // catches ANY exception
             Alert alert = new Alert(AlertType.ERROR);
